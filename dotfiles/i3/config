@@ -1,0 +1,310 @@
+#####################################################################
+#/////////////////////////i3 Configuration\\\\\\\\\\\\\\\\\\\\\\\\\\#
+#####################################################################
+#
+# SNTHE's i3 configuration.
+# Probably sucks :)
+#
+#####################################################################
+
+
+
+
+################################
+#          F O N T S           #
+################################
+font pango:Hack 12
+
+
+
+
+################################
+#  C O L O R S & T I T L E S   #
+################################
+
+
+
+
+# Titles #
+##########
+for_window [class=".*"] title_window_icon on
+for_window [class=".*"] title_format "  %class"
+
+# Border
+default_border pixel 0
+
+# Colors #
+#########
+
+# Class                 Border  BG      Text    Indicator Child border
+client.focused          #000000 #000000 #8F43EE #8530ee   #000000
+client.focused_inactive #000000 #000000 #555555 #484e50   #000000
+client.unfocused        #000000 #000000 #555555 #292d2e   #000000
+client.urgent           #000000 #000000 #ffffff #cc4b4a   #000000
+client.placeholder      #000000 #0c0c0c #555555 #000000   #000000
+
+
+
+
+################################
+#      V A R I A B L E S       #
+################################
+set $mod Mod4
+set $term kitty
+
+
+
+
+################################
+#      A U T O S T A R T       #
+################################
+
+# Resolution
+exec --no-startup-id xrandr --output DP-1 --mode 1920x1080
+
+# Bar
+exec_always --no-startup-id ~/.config/polybar/launch.sh
+
+# Wallpaper
+exec_always --no-startup-id ~/.fehbg
+
+# Compositor
+exec_always --no-startup-id killall picom;picom
+
+# Dex autostart (I don't use this idk why it's here but I'll still keep it here :))))
+exec --no-startup-id dex --autostart --environment i3
+
+# Screen lock util
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+
+# NetworkManager Applet
+exec --no-startup-id nm-applet
+
+# Notification daemon
+exec --no-startup-id dunst
+
+# Polkit
+exec --no-startup-id lxsession
+
+# Terminal autostart
+exec --no-startup-id kitty -e /home/snthe/.config/scripts/neofetch_term.sh
+
+## Flat mouse acceleration
+exec_always --no-startup-id for id in $(xinput list | grep "pointer" | cut -d '=' -f 2 | cut -f 1); do xinput --set-prop $id 'libinput Accel Profile Enabled' 0, 1; done
+
+
+
+
+###################################
+#        B I N D I N G S          #
+###################################
+
+
+
+
+# Pulseaudio volume adjustment with PaCTL#
+##########################################
+
+# Volume up
+bindsym XF86AudioRaiseVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ +10%
+
+# Volume down
+bindsym XF86AudioLowerVolume exec --no-startup-id pactl set-sink-volume @DEFAULT_SINK@ -10%
+
+# Mute audio
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# Mute mid
+bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
+
+# General #
+###########
+
+# Floating modifier
+floating_modifier $mod
+
+# Execute terminal
+bindsym $mod+Return exec $term
+
+# Execute... executor idfk
+bindsym $mod+space exec --no-startup-id rofi -show drun
+
+
+# Misc #
+########
+
+# Reload i3
+bindsym $mod+Shift+q reload
+
+# Restart i3
+bindsym $mod+Shift+r restart
+
+# Logout (exits i3)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+
+
+# Screenshot #
+##############
+bindsym $mod+Shift+s --release exec --no-startup-id /home/snthe/.config/scripts/screenshot.sh;
+bindsym Print exec --no-startup-id scrot '/home/snthe/Pictures/Screenshots/%F_%T.png' -e 'xclip -selection clipboard -target image/png -i $f';exec notify-send --expire-time=2000 "Screenshot taken"
+
+
+
+
+############################################
+#     W I N D O W M A N A G E M E N T      #
+############################################
+
+
+# Gaps #
+########
+
+# Inner gaps
+gaps inner 20
+
+# Outer gaps
+gaps outer 0
+
+
+# Focus #
+#########
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+bindsym $mod+a focus parent
+
+focus_follows_mouse no
+
+# Move #
+########
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
+
+
+# Split #
+#########
+bindsym $mod+h split h 
+bindsym $mod+b split v
+
+
+# Toggles #
+###########
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+f fullscreen toggle
+bindsym $mod+q kill
+
+
+# Layout #
+##########
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+
+
+
+########################################
+#         W O R K S P A C E S          #
+########################################
+
+
+
+# Naming #
+##########
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+set $ws11 "11"
+set $ws12 "12"
+set $ws13 "13"
+set $ws14 "14"
+
+
+# Switch #
+##########
+bindsym $mod+z workspace number $ws1
+bindsym $mod+x workspace number $ws2
+bindsym $mod+c workspace number $ws3
+bindsym $mod+v workspace number $ws4
+bindsym $mod+1 workspace number $ws5
+bindsym $mod+2 workspace number $ws6
+bindsym $mod+3 workspace number $ws7
+bindsym $mod+4 workspace number $ws8
+bindsym $mod+5 workspace number $ws9
+bindsym $mod+6 workspace number $ws10
+bindsym $mod+7 workspace number $ws11
+bindsym $mod+8 workspace number $ws12
+bindsym $mod+0 workspace number $ws13
+bindsym $mod+m workspace number $ws14
+
+
+# Move #
+########
+bindsym $mod+Shift+z move container to workspace number $ws1
+bindsym $mod+Shift+x move container to workspace number $ws2
+bindsym $mod+Shift+c move container to workspace number $ws3
+bindsym $mod+Shift+v move container to workspace number $ws4
+bindsym $mod+Shift+1 move container to workspace number $ws5
+bindsym $mod+Shift+2 move container to workspace number $ws6
+bindsym $mod+Shift+3 move container to workspace number $ws7
+bindsym $mod+Shift+4 move container to workspace number $ws8
+bindsym $mod+Shift+5 move container to workspace number $ws9
+bindsym $mod+Shift+6 move container to workspace number $ws10
+bindsym $mod+Shift+7 move container to workspace number $ws11
+bindsym $mod+Shift+8 move container to workspace number $ws12
+bindsym $mod+Shift+9 move container to workspace number $ws13
+bindsym $mod+Shift+m move container to workspace number $ws14
+
+# Assign programs to workspaces #
+#################################
+for_window [class="Home"] move container to workspace 1
+for_window [class="discord"] move container to workspace 2
+for_window [class="firefox"] move container to workspace 3
+for_window [class="Vivaldi-stable"] move container to workspace 3
+for_window [class="Spotify"] move container to workspace 14
+
+
+
+
+############################################
+#                R E S I Z E               #
+############################################
+
+
+
+
+# Resize warn
+bindsym $mod+r mode "resize"; exec --no-startup-id notify-send --expire-time=2000 "Resize mode enabled"
+
+# Resize
+mode "resize" {
+        # These bindings trigger as soon as you enter the resize mode
+
+        # same bindings, but for the arrow keys
+        bindsym $mod+Left resize shrink width 5 px or 5 ppt
+        bindsym $mod+Down resize grow height 5 px or 5 ppt
+        bindsym $mod+Up resize shrink height 5 px or 5 ppt
+        bindsym $mod+Right resize grow width 5 px or 5 ppt
+
+	bindsym $mod+Shift+Left resize shrink width 10 px or 10 ppt
+        bindsym $mod+Shift+Down resize grow height 10 px or 10 ppt
+        bindsym $mod+Shift+Up resize shrink height 10 px or 10 ppt
+        bindsym $mod+Shift+Right resize grow width 10 px or 10 ppt
+
+        # back to normal: Enter or Escape or $mod+r
+        bindsym Return mode "default"
+        bindsym Escape mode "default"
+        bindsym $mod+r mode "default"
+}
+

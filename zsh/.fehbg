@@ -1,0 +1,2 @@
+#!/bin/sh
+feh --no-fehbg --bg-scale '/home/snthe/Pictures/Wallpaper/alleyway_neon.jpg' 
