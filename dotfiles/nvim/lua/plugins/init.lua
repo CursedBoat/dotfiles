@@ -7,6 +7,10 @@ local default_plugins = {
     "xiyaowong/transparent.nvim",
     lazy = false,
   },
+  {
+    "lambdalisue/suda.vim",
+    lazy=false,
+  },
   -- nvchad plugins
   { "NvChad/extensions", branch = "v2.0" },
 

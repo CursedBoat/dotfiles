@@ -147,7 +147,7 @@ bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcu
 # Screenshot #
 ##############
 bindsym $mod+Shift+s --release exec --no-startup-id /home/snthe/.config/scripts/screenshot.sh;
-bindsym Print exec --no-startup-id scrot '/home/snthe/Pictures/Screenshots/%F_%T.png' -e 'xclip -selection clipboard -target image/png -i $f';exec notify-send --expire-time=2000 "Screenshot taken"
+bindsym Print exec --no-startup-id scrot '/home/snthe/Screenshots/%F_%T.png' -e 'xclip -selection clipboard -target image/png -i $f';exec notify-send --expire-time=2000 "Screenshot taken"
 
 
 

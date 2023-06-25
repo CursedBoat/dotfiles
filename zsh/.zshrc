@@ -6,7 +6,9 @@ export PATH="$PATH:/$HOME/.local/bin/"
 export PATH="$PATH:/$HOME/.cargo/bin/"
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
+export TERMCMD="kitty"
 # export WINEPREFIX="$HOME/Bitwig Studio/wine_pfx/"
+#
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
